@@ -23,6 +23,8 @@
 #### Trainable params: 12,194
 #### Non-trainable params: 0
 
-![image](https://user-images.githubusercontent.com/82880708/180745191-5190aade-7841-4f38-9982-0578091a03ed.png)
+![image](https://user-images.githubusercontent.com/82880708/180780568-3232e302-7300-4477-84f6-421261d7e5be.png)
+![image](https://user-images.githubusercontent.com/82880708/180780586-4df02159-a186-4796-846b-8fbf06e8a076.png)
 
-#### This model is trained on epochs of 20 and batch size of 32 with validation split of 20%. The training accuracy and validation accuracy is 100%. This may be a sign of overfitting, however the testing accuracy is 96.59%.
+
+#### This model is trained on epochs of 20 and batch size of 32 with validation split of 20%. The training accuracy is 99.85% and validation accuracy is 97.56%. This may be a sign of overfitting, however the testing accuracy is 99.02%.

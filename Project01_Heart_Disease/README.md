@@ -3,13 +3,13 @@
 #### The purpose of this project is to create an accurate deep learning model to predict the presence of heart disease for patients. This project is created using Spyder IDE. This model is trained using:
 [Link to Heart Disease Dataset](https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset).
 
-## **3. Methodology**
-### 3.1 Preprocessing
+## **2. Methodology**
+### 2.1 Preprocessing
 #### a. The data is loaded and the dataset is already complete.
 #### b. The data is split into train-test set with a ratio of 80:20.
 #### c. The features are normalized using standardization.
 
-### 3.2 Model Pipeline & Evaluation
+### 2.2 Model Pipeline & Evaluation
 
  | Layer (type) | Output Shape | Param # |
  | --- | --- | --- |

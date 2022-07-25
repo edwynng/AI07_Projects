@@ -25,7 +25,7 @@ features = file.copy()
 labels = features.pop('target')
 
 #%%
-SEED = 12345
+SEED = 54321
 x_train, x_test, y_train, y_test = train_test_split(features,labels,test_size=0.2,random_state=SEED)
 
 print(x_train.shape,y_train.shape)

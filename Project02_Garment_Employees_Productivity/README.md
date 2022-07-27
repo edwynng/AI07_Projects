@@ -47,7 +47,7 @@ a. All dataset are split using train-test-split with ratio of 80:20.
 
 b. All features are standardized using StandardScaler.
 
-c. The pipeline is the same for all dataset.
+c. The pipeline is the same for all dataset. Each dense layer uses the 'elu' activation function.
 
 Pipeline for df:
 | Layer (type) | Output Shape | Param # |

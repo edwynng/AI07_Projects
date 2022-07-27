@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 
 #%%
@@ -91,3 +92,6 @@ predictions = np.argmax(model.predict(x_test_std),axis=1)
 actual_vs_predictions = np.transpose(np.vstack((y_test,predictions)))
 
 print(model.evaluate(x_test_std,y_test))
+
+#%%
+print(confusion_matrix(y_test, predictions))

@@ -31,7 +31,7 @@ df = data.copy()
 df.shape
 
 df.isna().sum()
-
+#%%
 df.fillna(0,inplace=True)
 
 newdate = pd.to_datetime(df['date'],format='%m/%d/%Y')
@@ -60,19 +60,22 @@ df['quarter_cos'] = np.cos(df['quarter'] * (2 * np.pi / 5))
 df['day_sin'] = np.sin(df['day'] * (2 * np.pi / 31))
 df['day_cos'] = np.cos(df['day'] * (2 * np.pi / 31))
 
+df = df.drop(columns=['dayofweek','quarter'])
+
 df_sewing = df[df['department']=='sewing']
 df_fin = df[df['department'] == 'finishing']
 
-df_sewing = pd.get_dummies(df_sewing,columns=['team','month'],drop_first=True)
-df_sewing = df_sewing.drop(columns=['department','day'])
-
 df = pd.get_dummies(df,columns=['team','month','department'],drop_first=True)
-df = df.drop(columns=['day'])
+
+df_sewing = df_sewing.drop(columns=['department'])
+df_sewing = pd.get_dummies(df_sewing,columns=['team','month'],drop_first=True)
+
+df_fin = df_fin.drop(columns=['department','wip', 'idle_time', 'idle_men','no_of_style_change'])
+df_fin = pd.get_dummies(df_fin,columns=['team','month'],drop_first=True)
 
 #%%
 features = df.copy()
 labels = features.pop('actual_productivity')
-
 
 #%%
 SEED = 54321
@@ -103,7 +106,7 @@ x = layers.Dropout(0.1)(x)
 outputs = out_layer(x)
 
 model = keras.Model(inputs=inputs,outputs=outputs)
-model.summary
+model.summary()
 
 #%%
 model.compile(optimizer='adam', loss='mse', metrics=['mae'])
@@ -125,13 +128,13 @@ epochs_x_axis=history.epoch
 
 plt.plot(epochs_x_axis, training_loss, label = 'Training Loss')
 plt.plot(epochs_x_axis, val_loss, label='Validation Loss')
-plt.title("Training vs Validation Loss")
+plt.title("Training vs Validation Loss - Complete dataset")
 plt.legend()
 plt.figure()
 
 plt.plot(epochs_x_axis, training_acc, label = 'Training Loss')
 plt.plot(epochs_x_axis, val_acc, label='Validation Loss')
-plt.title("Training vs Validation MAE")
+plt.title("Training vs Validation MAE - Complete dataset")
 plt.legend()
 plt.figure()
 plt.show()
@@ -146,11 +149,13 @@ plt.figure(figsize=(10,10))
 plt.scatter(y_test, predictions, c='b')
 plt.xlabel('Actual')
 plt.ylabel('Prediction')
-plt.title('Prediction vs Actual')
+plt.title('Prediction vs Actual - Complete dataset')
 plt.show()
 
 #%%
 print(model.evaluate(x_test_std,y_test))
+predictions = predictions.reshape(-1,)
+print(np.corrcoef(predictions,y_test))
 
 #%%
 """
@@ -193,7 +198,7 @@ x = layers.Dropout(0.1)(x)
 outputs = out_layer(x)
 
 model = keras.Model(inputs=inputs,outputs=outputs)
-model.summary
+model.summary()
 
 #%%
 model.compile(optimizer='adam', loss='mse', metrics=['mae'])
@@ -215,13 +220,13 @@ epochs_x_axis=history.epoch
 
 plt.plot(epochs_x_axis, training_loss, label = 'Training Loss')
 plt.plot(epochs_x_axis, val_loss, label='Validation Loss')
-plt.title("Training vs Validation Loss")
+plt.title("Training vs Validation Loss - 'sewing' department")
 plt.legend()
 plt.figure()
 
 plt.plot(epochs_x_axis, training_acc, label = 'Training Loss')
 plt.plot(epochs_x_axis, val_acc, label='Validation Loss')
-plt.title("Training vs Validation MAE")
+plt.title("Training vs Validation MAE - 'sewing' department")
 plt.legend()
 plt.figure()
 plt.show()
@@ -241,6 +246,8 @@ plt.show()
 
 #%%
 print(model.evaluate(x_test_sew,y_test_sew))
+predictions = predictions.reshape(-1,)
+print(np.corrcoef(predictions,y_test_sew))
 
 #%%
 """
@@ -249,10 +256,6 @@ Part 3 - 'finishing' department only
 
 #%%
 keras.backend.clear_session()
-
-#%%
-df_fin = df_fin.drop(columns=['department','wip', 'idle_time', 'idle_men','no_of_style_change','incentive','day'])
-df_fin = pd.get_dummies(df_fin,columns=['team','month'],drop_first=True)
 
 #%%
 features_fin = df_fin.copy()
@@ -287,7 +290,7 @@ x = layers.Dropout(0.1)(x)
 outputs = out_layer(x)
 
 model = keras.Model(inputs=inputs,outputs=outputs)
-model.summary
+model.summary()
 #%%
 model.compile(optimizer='adam', loss='mse', metrics=['mae'])
 
@@ -297,7 +300,7 @@ es = EarlyStopping(patience=15, verbose=1, restore_best_weights=True)
 #%%
 EPOCHS = 100
 BATCH_SIZE = 64
-history2= model.fit(x_train_fin, y_train_fin, validation_split = 0.25, epochs=EPOCHS, batch_size=BATCH_SIZE, callbacks=[es])
+history= model.fit(x_train_fin, y_train_fin, validation_split = 0.25, epochs=EPOCHS, batch_size=BATCH_SIZE, callbacks=[es])
 
 #%%
 training_loss = history.history['loss']
@@ -308,13 +311,13 @@ epochs_x_axis=history.epoch
 
 plt.plot(epochs_x_axis, training_loss, label = 'Training Loss')
 plt.plot(epochs_x_axis, val_loss, label='Validation Loss')
-plt.title("Training vs Validation Loss")
+plt.title("Training vs Validation Loss - 'finishing' department")
 plt.legend()
 plt.figure()
 
 plt.plot(epochs_x_axis, training_acc, label = 'Training Loss')
 plt.plot(epochs_x_axis, val_acc, label='Validation Loss')
-plt.title("Training vs Validation MAE")
+plt.title("Training vs Validation MAE - 'finishing' department")
 plt.legend()
 plt.figure()
 plt.show()
@@ -329,8 +332,10 @@ plt.figure(figsize=(10,10))
 plt.scatter(y_test_fin, predictions, c='b')
 plt.xlabel('Actual')
 plt.ylabel('Prediction')
-plt.title('Prediction vs Actual - "finishing" department ')
+plt.title('Prediction vs Actual - "finishing" department')
 plt.show()
 
 #%%
 print(model.evaluate(x_test_fin,y_test_fin))
+predictions = predictions.reshape(-1,)
+print(np.corrcoef(predictions,y_test_fin))

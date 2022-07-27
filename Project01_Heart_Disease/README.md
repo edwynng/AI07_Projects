@@ -8,6 +8,7 @@
 #### a. The data is loaded and the dataset is already complete.
 #### b. The data is split into train-test set with a ratio of 80:20.
 #### c. The features are normalized using standardization.
+#### d. Each dense layer uses 'relu' as activation function.
 
 ### 2.2 Model Pipeline & Evaluation
 

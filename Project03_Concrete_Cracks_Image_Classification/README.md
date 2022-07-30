@@ -1,5 +1,11 @@
-Link to Dataset:
-https://data.mendeley.com/datasets/5y9wdsg2zt/2
+# Detecting Concrete Cracks using Convolutional Neural Network Image Classification.
+
+## 1. Overview
+#### The purpose of this project is to create an accurate deep learning model to identify cracks on concretes. This project is created using Spyder IDE. This model is trained using: [Concrete crack images dataset](https://data.mendeley.com/datasets/5y9wdsg2zt/2)
+
+## 2. Methodology
+### 2.1 Preprocessing
+#### 
 
 #### Total params: 2,260,546
 #### Trainable params: 415,362

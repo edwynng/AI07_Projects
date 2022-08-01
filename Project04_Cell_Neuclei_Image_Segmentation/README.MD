@@ -18,7 +18,7 @@
 
 
 ### 2.2 Model Pipeling & Training
-#### a. Data augmentation RandomFlip is applied on the training dataset.
+#### a. No data augmentation is used on the training dataset.
 #### b. MobileNetV2 is used as transfer learning for the base model.
 #### c. U-Net is used as the model architecture which serve as the feature extractor and upward stack.
 

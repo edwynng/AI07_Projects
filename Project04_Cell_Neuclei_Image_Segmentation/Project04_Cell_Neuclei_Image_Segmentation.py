@@ -258,6 +258,27 @@ VALIDATION_STEPS = len(val_dataset)//BATCH_SIZE
 history = model.fit(train_batches,validation_data=val_batches,epochs=EPOCHS,steps_per_epoch=STEPS_PER_EPOCH,validation_steps=VALIDATION_STEPS,callbacks=[DisplayCallback(),es])
 
 #%%
+training_loss = history.history['loss']
+val_loss = history.history['val_loss']
+training_acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+epochs_x_axis=history.epoch
+
+plt.plot(epochs_x_axis, training_loss, label = 'Training Loss')
+plt.plot(epochs_x_axis, val_loss, label='Validation Loss')
+plt.title("Training vs Validation Loss")
+plt.legend()
+plt.figure()
+
+plt.plot(epochs_x_axis, training_acc, label = "Training Accuracy")
+plt.plot(epochs_x_axis, val_acc, label='Validation Accuracy')
+plt.title("Training vs Validation Accuracy")
+plt.legend()
+plt.figure()
+
+plt.show()
+
+#%%
 show_predictions(test_batches,3)
 
 #%%

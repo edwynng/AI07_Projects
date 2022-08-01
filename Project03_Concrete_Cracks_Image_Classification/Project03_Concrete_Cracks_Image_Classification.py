@@ -134,3 +134,4 @@ for i in range(9):
     current_label = class_names[label_batch[i]]
     plt.title(f"Prediction: {current_prediction}, Actual: {current_label}")
     plt.axis("off")
+    

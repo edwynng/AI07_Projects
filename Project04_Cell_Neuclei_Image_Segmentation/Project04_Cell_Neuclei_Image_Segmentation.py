@@ -115,18 +115,6 @@ val_dataset = tf.data.Dataset.zip((x_val_tensor,y_val_tensor))
 test_dataset = tf.data.Dataset.zip((x_test_tensor,y_test_tensor))
 
 #%%
-class Augment(layers.Layer):
-    def __init__(self,seed=54321):
-        super().__init__()
-        self.augment_inputs = layers.RandomFlip(mode='horizontal', seed=seed)
-        self.augment_labels = layers.RandomFlip(mode='horizontal', seed=seed)
-        
-    def call(self,inputs,labels):
-        inputs = self.augment_inputs(inputs)
-        labels = self.augment_labels(labels)
-        return inputs,labels
-    
-#%%
 AUTOTUNE = tf.data.AUTOTUNE
 BATCH_SIZE = 32
 BUFFER_SIZE = 1000
@@ -140,7 +128,6 @@ train_batches = (
     .shuffle(BUFFER_SIZE)
     .batch(BATCH_SIZE)
     .repeat()
-    # .map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE)
     )
 
@@ -148,7 +135,6 @@ val_batches = (
     val_dataset
     .batch(BATCH_SIZE)
     .repeat()
-    # .map(Augment())
     .prefetch(buffer_size=tf.data.AUTOTUNE)
     )
 
@@ -251,7 +237,7 @@ class DisplayCallback(callbacks.Callback):
         show_predictions()
         print('\nSample Prediction after epoch {}\n'.format(epoch+1))
 
-es = callbacks.EarlyStopping(patience=15,verbose=1,restore_best_weights=True)
+es = callbacks.EarlyStopping(patience=20,verbose=1,restore_best_weights=True)
 #%%
 EPOCHS = 100
 VALIDATION_STEPS = len(val_dataset)//BATCH_SIZE

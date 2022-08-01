@@ -39,4 +39,23 @@
 #### Total params: 6,502,786
 #### Trainable params: 4,658,882
 #### Non-trainable params: 1,843,904
+#### This model is trained with 100 epochs with EarlyStopping patience of 20.
 
+### 3. Results
+#### EarlyStopping is applied at epoch 70 with best weights at epoch 50.
+
+![image](https://user-images.githubusercontent.com/82880708/182070732-716ed918-ed9f-438a-add7-b0094885a6a9.png)
+![image](https://user-images.githubusercontent.com/82880708/182070736-276697c1-4bf5-4934-bfaf-ac35f0c9a5b1.png)
+
+#### Validation Loss: 0.0971
+#### Validation Accuracy: 0.9635
+
+#### Testing Loss: 0.089142
+#### Testing Accuracy: 0.963795
+
+#### Here are some testing predictions compared with actual.
+![image](https://user-images.githubusercontent.com/82880708/182070805-dfc89e6b-72df-4e1a-91af-6aae5f616693.png)
+![image](https://user-images.githubusercontent.com/82880708/182070812-ea39f467-a874-4eaa-98d5-57bf741f8f69.png)
+![image](https://user-images.githubusercontent.com/82880708/182070817-4d278fc0-4446-48ef-9020-0f687641e784.png)
+
+This model is capable of image segmentation of cell neuclei with high accuracy.

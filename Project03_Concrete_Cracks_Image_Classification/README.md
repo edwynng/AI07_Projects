@@ -31,14 +31,16 @@
 
 ## 3. Results
 #### EarlyStopping is applied at epoch 9 with best epoch of 4.
-#### Validation Loss: 0.0046
-#### Validation Accuracy: 0.9994
 
 ![image](https://user-images.githubusercontent.com/82880708/181775610-ed2116a0-0ea3-4dcb-9373-e821ef2fc56f.png)
 ![image](https://user-images.githubusercontent.com/82880708/181775617-15099b60-2715-416e-a090-8cbb36ef3266.png)
+#### Validation Loss: 0.0046
+#### Validation Accuracy: 0.9994
 
 #### Testing Loss: 0.007529
 #### Testing Accuracy: 0.998375
 
-![image](https://user-images.githubusercontent.com/82880708/181775659-8ce001d8-a062-42b8-9036-648b6d0cb5cd.png)
 #### Here are some predictions of testing images.
+![image](https://user-images.githubusercontent.com/82880708/181775659-8ce001d8-a062-42b8-9036-648b6d0cb5cd.png)
+
+This model is capable of detecting the presence of cracks in concretes with high accuracy.
